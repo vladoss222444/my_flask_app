@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>С 8 Марта!</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(45deg, #ff9a9e, #fad0c4);
+            font-family: 'Arial', sans-serif;
+            color: #fff;
+            overflow: hidden;
+        }
+        .container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        h1 {
+            font-size: 3rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            animation: float 3s ease-in-out infinite;
+        }
+        .hearts {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        .heart {
+            position: absolute;
+            color: #ff6b6b;
+            font-size: 2rem;
+            animation: fall 5s linear infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        @keyframes fall {
+            0% { transform: translateY(-10%); opacity: 1; }
+            100% { transform: translateY(110%); opacity: 0; }
+        }
+        .text {
+            font-size: 1.2rem;
+            text-align: center;
+            max-width: 600px;
+            margin: 20px auto;
+            animation: slide 10s linear infinite;
+        }
+        @keyframes slide {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        button {
+            border-radius: 10px;
+            padding: 10px 20px;
+            background-color: #ff6b6b;
+            color: white;
+            cursor: pointer;
+            outline: none;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #ff8080;
+        }
+        .nice-word {
+            font-size: 1.5rem;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>С 8 Марта!</h1>
+    <div class="text">
+        <p>Пусть этот день будет полон цветов, улыбок и счастья! Желаю тебе весеннего настроения и море подарков! С 8 Марта, милая! Пусть твои мечты сбываются! Пусть весна приходит в твоё сердце и приносит радость! С праздником весны и красоты! Будь всегда такой прекрасной! Поздравляю с 8 Марта! Пусть любовь окружает тебя всегда! Пусть каждый день будет таким же светлым, как сегодня! Счастья, здоровья и весенних улыбок тебе, дорогая! Пусть все дни будут яркими, как эта весна! Желаю волшебства, которое наполняет душу теплом! С 8 Марта, моя прекрасная! Пусть мир восхищается тобой! Пусть твоя жизнь будет сладкой, как шоколад! С Международным женским днём! Пусть счастье всегда рядом! Пусть всё, что ты желаешь, исполняется легко и быстро! Желаю нежности, заботы и душевного тепла! Пусть в твоей жизни будет больше приятных сюрпризов!</p>
+    </div>
+    <div class="hearts">
+        <div class="heart" style="left: 10%; animation-delay: 0s;">❤️</div>
+        <div class="heart" style="left: 20%; animation-delay: 1s;">❤️</div>
+        <div class="heart" style="left: 30%; animation-delay: 2s;">❤️</div>
+        <div class="heart" style="left: 40%; animation-delay: 3s;">❤️</div>
+        <div class="heart" style="left: 50%; animation-delay: 4s;">❤️</div>
+        <div class="heart" style="left: 60%; animation-delay: 5s;">❤️</div>
+        <div class="heart" style="left: 70%; animation-delay: 6s;">❤️</div>
+        <div class="heart" style="left: 80%; animation-delay: 7s;">❤️</div>
+        <div class="heart" style="left: 90%; animation-delay: 8s;">❤️</div>
+    </div>
+    <button onclick="getNiceWord()">Получить приятное слово</button>
+    <div id="nice-word" class="nice-word"></div>
+    <audio autoplay loop>
+        <source src="{{ url_for('static', filename='audio.mp3') }}" type="audio/mpeg">
+        Ваш браузер не поддерживает аудио.
+    </audio>
+    <script>
+        function getNiceWord() {
+            fetch('/get_nice_word')
+                .then(response => response.text())
+                .then(data => {
+                document.getElementById('nice-word').innerHTML = data;
+            });
+        }
+    </script>
+</div>
+</body>
+</html>
